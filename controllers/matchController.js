@@ -1,0 +1,98 @@
+const Match = require('../models/match');
+const User = require('../models/user');
+
+const createLittleMatch = async (matches) => {
+    let filteredMatches = [];
+    matches.forEach(match => {
+        let team1 = 0;
+        let team2 = 0;
+        match.goals.forEach(goal => {
+            if (match.team1.includes(goal)) {
+                team1++;
+            } if (match.team2.includes(goal)) {
+                team2++;
+            }
+        });
+        filteredMatches.push({ _id: match._id, date: match.date, goals: `${team1} - ${team2}`, team1: match.team1.length, team2: match.team2.length });
+    });
+    return filteredMatches;
+}
+const getMatchesList = async (req, res) => {
+    try {
+        const matches = await Match.find();
+        matchtoSend = await createLittleMatch(matches);
+        res.status(200).json(matchtoSend);
+    }
+    catch (err) { console.log(err); }
+}
+
+const getMatchById = async (req, res) => {
+    try {
+        const match = await Match.findById(req.params.id);
+        res.status(200).json(match);
+    }
+    catch (err) {
+        console.log(err);
+        res.status(400).json("Match id not valid");
+    }
+}
+
+const getUserListByMatchId = async (req, res) => {
+    try {
+        const match = await Match.findById(req.params.id);
+        const playersList = match.team1.concat(match.team2);
+        const playerToSend = await User.find({ _id: { $in: playersList } });
+        let players = [];
+        playerToSend.forEach(player => players.push({ _id: player._id, username: player.username }));
+        console.log(players);
+        res.status(200).json(players);
+    }
+    catch (err) {
+        console.log(err);
+        res.status(400).json("Match id not valid");
+    }
+}
+
+const createMatch = async (req, res) => {
+    const newMatch = new Match(req.body);
+    try {
+        const savedMatch = await newMatch.save();
+        res.status(200).json(savedMatch);
+    }
+    catch (err) {
+        console.log(err);
+        res.status(400).json(err);
+    }
+}
+
+const getRefereeList = async (req, res) => {
+    try {
+        const matchesRef = await Match.find({ referee: { $in: [req.params.id] } });
+        const matchesCrea = await Match.find({ referee: { $nin: [req.params.id] }, createdBy: { $in: [req.params.id] } });
+        const matches = [...new Set([...matchesCrea, ...matchesRef])];
+        const matchtoSend = await createLittleMatch(matches);
+        res.status(200).json(matchtoSend);
+    } catch (err) {
+        console.log(err);
+        res.status(400).json(err);
+    }
+}
+
+const updateMatch = async (req, res) => {
+    try {
+        const updatedMatch = await Match.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        res.status(200).json(updatedMatch);
+    }
+    catch (err) {
+        console.log(err);
+        res.status(400).json(err);
+    }
+}
+module.exports = {
+    getMatchesList,
+    getMatchById,
+    getUserListByMatchId,
+    createMatch,
+    getRefereeList,
+    updateMatch
+}
