@@ -1,0 +1,5 @@
+DB_URI = "mongodb+srv://user:passwordb@cluster.mongodb.net/"
+IP_ADDRESS = "localhost"
+PORT = "3000"
+JWT_TOKEN_SECRET = "theSuperSecretJWTToken"
+CORS_ALLOWED_IP = "http://localhost:4200"
