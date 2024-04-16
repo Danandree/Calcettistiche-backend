@@ -1,9 +1,29 @@
 # Calcettistiche backend
 Parte backend dell'applicazione "Calcettistiche".<br>
 
-Quest'appliczione resta in attesa delle richieste e gestisce un database per la registrazione di gioccatori, partite e statistiche varie<br>
+Applicazione API JSON RESTful che permette di contattare un database per creare, visualizzare e modificare le varie collezioni di utenti e partite.<br> 
 Per la gestione dei dati l'applicazione usa MongoDB come database<br>
-L'applicazione é scritta in javascript e si serve di JWT per l'autenticazione dell'utente<br>
+Per eseguire tutte le richieste disponibili bisogna essere loggati all'app, altrimenti si avranno un set di richieste limitate; per fare questo l'applicazione si serve di JWT per l'autenticazione dell'utente<br> 
+
+## Installazione
+Per eseguire l'applicazione sul sistema devono essere presenti:
+- Node.js (e relativo package manager npm)<br>
+- MongoDB<br>
+- Angular CLI<br>
+
+Scaricare l'applicazione e installare le dipendenze con "npm install".<br>
+Configurare l'applicazione creando il file ".env" (vedi sotto) e lanciare il file "server.js".<br>
+
+## Configurazione
+Per configurare l'app si deve creare un file ".env" nella cartella principale nel quale inserire i parametri dell'applicazione.<br>
+I parametri da cambiare sono qui elencati insieme al parametro di default in caso mancasse totalmente o parzialmente il file ".env":
+ - ip server: localhost
+ - CORS: localhost
+ - porta server: 3000
+ - DB_URI: mongodb://localhost:12017
+ - Jwt-Token: "TheSuperSecretJWTToken"
+> [!NOTE]
+> Puoi rinominare il file ".env-example" in ".env" e modificare i valori per configurare l'applicazione.
 
 ## Richieste senza login
 Questa è la lista dfelle tichieste che possono esser fatte allìapplicazione da utentei che non hanno fatto il login:
