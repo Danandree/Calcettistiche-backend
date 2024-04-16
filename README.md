@@ -17,11 +17,11 @@ Configurare l'applicazione creando il file ".env" (vedi sotto) e lanciare il fil
 ## Configurazione
 Per configurare l'app si deve creare un file ".env" nella cartella principale nel quale inserire i parametri dell'applicazione.<br>
 I parametri da cambiare sono qui elencati insieme al parametro di default in caso mancasse totalmente o parzialmente il file ".env":
- - ip server: localhost
- - CORS: localhost
- - porta server: 3000
+ - IP_ADDRESS: localhost
+ - CORS_ALLOWED_IP: localhost
+ - PORT: 3000
  - DB_URI: mongodb://localhost:12017
- - Jwt-Token: "TheSuperSecretJWTToken"
+ - JWT_TOKEN_SECRET: "TheSuperSecretJWTToken"
 > [!NOTE]
 > Puoi rinominare il file ".env-example" in ".env" e modificare i valori per configurare l'applicazione.
 
@@ -32,7 +32,6 @@ Questa è la lista dfelle tichieste che possono esser fatte allìapplicazione da
   - POST /users/signin, crea un nuvo utente
 - Utenti:
   - GET /users, restituisce la lista degli utenti registrati
-  - GET /users/:id, restituisce le statistiche dell'utente selezionato
   - GET /users/:id/stats, restituisce le statistiche dell'utente selezionato
   - GET /users/:id/referee, restituisce la lista delle partite di cui l'utente è amministratore
 - Partite:
