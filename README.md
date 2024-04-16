@@ -33,7 +33,7 @@ Questa è la lista dfelle tichieste che possono esser fatte allìapplicazione da
 - Utenti:
   - GET /users, restituisce la lista degli utenti registrati
   - GET /users/:id/stats, restituisce le statistiche dell'utente selezionato
-  - GET /users/:id/referee, restituisce la lista delle partite di cui l'utente è amministratore
+  - GET /users/:id/compare/:id, compara le statistiche dei due utenti selezioanti
 - Partite:
   - GET /matches, restituisce la lista delle partite
   - GET /matches/:id, restituisce le statistiche della psrtita selezionata
