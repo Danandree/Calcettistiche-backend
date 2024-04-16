@@ -53,3 +53,5 @@ Lista delle richieste eseguibili una volta effettuato il login:
   - PUT | PATCH /matches/:id, modifica la partitra selezionata
   - DELETE /matches/:id, elimina la partita selezionata
 
+## Test
+Le richieste al backend si possono testare all'indirizzo: [https://calcettistiche.oa.r.appspot.com](https://calcettistiche.oa.r.appspot.com)
