@@ -50,7 +50,7 @@ Lista delle richieste eseguibili una volta effettuato il login:
   - DELETE /users/:id, elimina l'utente
 - Partite:
   - POST /matches, crea una nuova partita
-  - PUT | PATCH /matches/:id, modifica la partitra selezionata
+  - PUT | PATCH /matches/:id, modifica la partita selezionata
   - DELETE /matches/:id, elimina la partita selezionata
 
 ## Test
