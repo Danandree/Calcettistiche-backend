@@ -48,7 +48,6 @@ const signup_user = async (req, res) => {
 
 const login_user = async (req, res) => {
     const { email, password } = req.body;
-    console.log(email, password);
     try {
         const user = await User.login(email, password);
         const token = createToken(user._id);
@@ -70,4 +69,4 @@ const logout_user = async (req, res) => {
     }
 }
 
-module.exports = { signup_user, login_user, logout_user }
+module.exports = { signup_user, login_user, logout_user, handleErrors }

@@ -39,7 +39,6 @@ const getUserPublic = async (req, res) => {
         }
         else { sendUserResponse(res, req, "User not found", 404); }
     } catch (err) {
-        console.log(err, "uqesto errore");
         sendUserResponse(res, req, "User id not valid", 400);
     }
 }
@@ -75,7 +74,6 @@ const getUserStats = async (req, res) => {
         userStats._id = user._id;
         userStats.username = user.username;
         userStats.img = user.img;
-        console.log(userStats.img, "USER IMG")
         userStats.totalMatch = await Match.countDocuments({});
         const matches = await Match.find({ $or: [{ team1: userId }, { team2: userId }] });
         matches.forEach(match => {
@@ -106,7 +104,6 @@ const getUserStats = async (req, res) => {
                     team2Gol++;
                 }
             })
-            console.log(team1Gol, team2Gol, "TEAM GOALS");
             if (team1Gol == team2Gol) {
                 userStats.draws.push(match._id);
             } else {
@@ -124,7 +121,7 @@ const getUserStats = async (req, res) => {
             //     userStats.draws.push(match._id);
             // }
         });
-        console.log(userStats, "USER STATS");
+        (userStats, "USER STATS");
         sendUserResponse(res, req, userStats);
     }
     catch (err) {
@@ -134,7 +131,6 @@ const getUserStats = async (req, res) => {
 }
 
 const deleteUser = async (req, res) => {
-    console.log("Delete User");
     try {
         const user = await User.findByIdAndDelete(req.params.id);
         sendUserResponse(res, req, user);
@@ -144,8 +140,6 @@ const deleteUser = async (req, res) => {
 }
 
 const modifyUser = async (req, res) => {
-    console.log("Modify User");
-    console.log(req.body);
     try {
         const user = await User.findByIdAndUpdate(req.params.id, req.body);
         sendUserResponse(res, req, user);

@@ -42,11 +42,6 @@ userSchema.pre('save', async function (next) {
     next();
 });
 
-userSchema.post('save', function (error, doc, next) {
-   error ? console.log(error, "error qua") : console.log("user saved");
-   next();
-});
-
 userSchema.statics.login = async function (email, password) {
     const user = await this.findOne({ email });
     if (user) {

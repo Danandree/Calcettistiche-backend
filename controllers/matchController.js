@@ -24,7 +24,6 @@ const getMatchesList = async (req, res) => {
     if (req.query.per_page > 0) { per_page = req.query.per_page; }
     if (req.query.page > 0) { page = req.query.page - 1; }
     if (req.query.date) {
-        console.log(req.query.date);
         let date = new Date(req.query.date);
         let matchDate = new Date(req.query.date);
         matchDate.setDate(date.getDate() + 1);
@@ -56,7 +55,6 @@ const getUserListByMatchId = async (req, res) => {
         const playerToSend = await User.find({ _id: { $in: playersList } });
         let players = [];
         playerToSend.forEach(player => players.push({ _id: player._id, username: player.username }));
-        console.log(players);
         res.status(200).json(players);
     }
     catch (err) {
@@ -85,7 +83,6 @@ const getRefereeList = async (req, res) => {
     if (req.query.per_page > 0) { per_page = req.query.per_page; }
     if (req.query.page > 0) { page = req.query.page - 1; }
     if (req.query.date) {
-        console.log(req.query.date);
         let date = new Date(req.query.date);
         let matchDate = new Date(req.query.date);
         matchDate.setDate(date.getDate() + 1);
