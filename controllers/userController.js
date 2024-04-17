@@ -45,9 +45,17 @@ const getUserPublic = async (req, res) => {
 }
 
 const getUserList = async (req, res) => {
+    let page = 0;
+    let per_page = 100;
+    let findQuery = {};
+    if (req.query.per_page > 0) { per_page = req.query.per_page; }
+    if (req.query.page > 0) { page = req.query.page - 1; }
+    if (req.query.username) {
+        findQuery.username = { $regex: req.query.username, $options: 'i' };
+    }
     let message = [];
     try {
-        const users = await User.find();
+        const users = await User.find(findQuery, null, { skip: page * per_page, limit: per_page });
         users.forEach(user => { message.push({ _id: user._id, username: user.username }) });
         sendUserResponse(res, req, message);
     } catch (err) {

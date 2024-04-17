@@ -18,8 +18,20 @@ const createLittleMatch = async (matches) => {
     return filteredMatches;
 }
 const getMatchesList = async (req, res) => {
+    let page = 0;
+    let per_page = 100;
+    let findQuery = {};
+    if (req.query.per_page > 0) { per_page = req.query.per_page; }
+    if (req.query.page > 0) { page = req.query.page - 1; }
+    if (req.query.date) {
+        console.log(req.query.date);
+        let date = new Date(req.query.date);
+        let matchDate = new Date(req.query.date);
+        matchDate.setDate(date.getDate() + 1);
+        findQuery.date = { $gte: date, $lt: matchDate };
+    }
     try {
-        const matches = await Match.find();
+        const matches = await Match.find(findQuery, null, { skip: page * per_page, limit: per_page });
         matchtoSend = await createLittleMatch(matches);
         res.status(200).json(matchtoSend);
     }
@@ -66,9 +78,23 @@ const createMatch = async (req, res) => {
 }
 
 const getRefereeList = async (req, res) => {
+    let page = 0;
+    let per_page = 100;
+    let findQueryRef = { referee: { $in: [req.params.id] } };
+    let findQueryCrea = { referee: { $nin: [req.params.id] }, createdBy: { $in: [req.params.id] } };
+    if (req.query.per_page > 0) { per_page = req.query.per_page; }
+    if (req.query.page > 0) { page = req.query.page - 1; }
+    if (req.query.date) {
+        console.log(req.query.date);
+        let date = new Date(req.query.date);
+        let matchDate = new Date(req.query.date);
+        matchDate.setDate(date.getDate() + 1);
+        findQueryCrea.date = { $gte: date, $lt: matchDate };
+        findQueryRef.date = { $gte: date, $lt: matchDate };
+    }
     try {
-        const matchesRef = await Match.find({ referee: { $in: [req.params.id] } });
-        const matchesCrea = await Match.find({ referee: { $nin: [req.params.id] }, createdBy: { $in: [req.params.id] } });
+        const matchesRef = await Match.find(findQueryRef);
+        const matchesCrea = await Match.find(findQueryCrea);
         const matches = [...new Set([...matchesCrea, ...matchesRef])];
         const matchtoSend = await createLittleMatch(matches);
         res.status(200).json(matchtoSend);
