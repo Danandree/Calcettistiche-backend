@@ -53,5 +53,14 @@ Lista delle richieste eseguibili una volta effettuato il login:
   - PUT | PATCH /matches/:id, modifica la partita selezionata
   - DELETE /matches/:id, elimina la partita selezionata
 
+## Risultati e ricerca
+Quando si richiede una lista vengono mostrati al massimo 20 risultati di default.<br>
+Per poter ovviare a questa restrizione aggiungere all'url le variabili "page" e "per_page", rispettivamente per scegliere la pagina e gli elementi visualizzati per pagina.<br>
+Lo stesso si può fare per effettuare una ricerca sugli utente o sulle partite, gli utenti possono essere cercati per username mentre le partite per data.<br>
+- Lista utenti con 100 risultati GET /users?per_page=100
+- Lista utenti con 100 risultati e seconda pagina GET /users?page=2&per_page=100
+- Ricerca per username GET /users?username=messi
+- Ricerca per data GET /matches?date=2024-04-17
+
 ## Test
 Le richieste al backend si possono testare all'indirizzo: [https://calcettistiche.oa.r.appspot.com](https://calcettistiche.oa.r.appspot.com)
