@@ -36,7 +36,8 @@ const matchSchema = new mongoose.Schema({
         type: String,
     },
     date: {
-        type: Date
+        type: Date,
+        required: [true, 'Field "date" is required']
     }
 }, {
     timestamps: true

@@ -4,6 +4,12 @@ const groupSchema = new mongoose.Schema({
         type: String,
         required: {true: 'Group name is required'}
     },
+    createdBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: [true, 'Field "createdBy" is required'],
+        immutable: [true, 'Field "createdBy" is immutable']
+    },
     admins: {
         type: [mongoose.Schema.Types.ObjectId],
         ref: 'User',

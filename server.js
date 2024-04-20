@@ -30,6 +30,7 @@ app.use(authRoutes);
 app.use('/static', express.static(path.join(__dirname,'public')));
 app.use('/users', userRoutes);
 app.use('/matches', matchesRoutes);
+app.use('/groups', require('./routes/groupRoutes'));
 app.use('*', checkJwtCookie, (req, res) => { res.status(404).json({ message: "Not Found" }) });
 
 mongoose.connect(dbURI)
